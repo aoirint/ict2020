@@ -262,7 +262,7 @@
 
 \begin{frame}{シェルスクリプトを実行する}
   \begin{itemize}
-    \item command.shファイルを作成 \\
+    \item command.shファイルを作成（echoは文字列を出力するコマンド） \\
       \texttt {
         echo "Hello Shell Script!"
       }
@@ -300,6 +300,64 @@
   \centering {
     \includegraphics[width=6cm,bb=0 0 734 487]{./images/exec-sh2.png}
   }
+
+\end{frame}
+
+
+\begin{frame}{シェルスクリプトの記法}
+  \begin{itemize}
+    \item 改行
+      \begin{itemize}
+        \item コマンドとコマンドの区切りは改行で表される
+        \item コマンドの途中で改行するときはバックスラッシュ（ $\backslash$ ）を入れる
+          \begin{itemize}
+            \item 改行は空白扱いにはならないので注意
+            \item ×：\texttt{echo$\backslash$[改行]Hello}
+            \item ◯：\texttt{echo $\backslash$[改行]Hello}
+            \item ◯：\texttt{ec$\backslash$[改行]ho Hello}
+          \end{itemize}
+
+        \item 空行（何も書かれていない行）は無視される
+      \end{itemize}
+
+    \item コメント
+      \begin{itemize}
+        \item 実行されないテキストをスクリプト中に埋め込める
+        \item 文字\#以降のその行はコメント\\
+          \texttt{echo Hello \# shell say Hello }
+        \item コメントアウト（コマンドをコメントにして実行されないようにする）\\
+          \texttt{\# echo Hello }
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{カレントディレクトリ}
+  \begin{itemize}
+    \item pwd（positioning working directory）コマンド\\
+      \texttt{pwd}
+      \begin{itemize}
+        \item カレントディレクトリを出力する（echoのように）
+        \item 相対パスの基点となる
+          \begin{itemize}
+            \item 絶対パスの例：/home/user/command.sh
+            \item 相対パスの例：command.sh または ./command.sh, ../example.txt （.はカレントディレクトリ、..は親ディレクトリを意味する）
+          \end{itemize}
+      \end{itemize}
+
+    \item cd（change directory）コマンド\\
+      \texttt{cd MY\_PATH}
+      \begin{itemize}
+        \item カレントディレクトリを\texttt{MY\_PATH}に変更する
+      \end{itemize}
+
+    \item カレントディレクトリ以外のファイルも実行できる/扱える
+      \begin{itemize}
+        \item カレントディレクトリが異なると 相対パスで指定したファイルを操作するときの操作対象が変わる
+      \end{itemize}
+
+  \end{itemize}
 
 \end{frame}
 
@@ -343,9 +401,10 @@
 \end{frame}
 
 
-\begin{frame}{参考資料：Windows スクリプト}
+\begin{frame}{参考資料：スクリプト}
   \begin{itemize}
     \item https://docs.microsoft.com/ja-jp/powershell/scripting/samples/\\ working-with-files-and-folders
+    \item \url { https://ja.wikipedia.org/wiki/Pwd }
   \end{itemize}
 
 \end{frame}
