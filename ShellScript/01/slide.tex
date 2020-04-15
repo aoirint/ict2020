@@ -185,7 +185,7 @@
 \end{frame}
 
 
-\begin{frame}{シェルとプロセス}
+\begin{frame}{シェルとプロセス 1/2}
   \begin{itemize}
     \item テキストではbashを題材にしているので、ここからはbashを前提とする
     \item プロセスの親子関係
@@ -204,7 +204,7 @@
 \end{frame}
 
 
-\begin{frame}{シェルとプロセス}
+\begin{frame}{シェルとプロセス 2/2}
   \begin{itemize}
     \item psコマンド
       \begin{itemize}
@@ -212,6 +212,9 @@
         \item ps fはプロセスの親子関係をグラフィカルに表示する
       \end{itemize}
     \item 親プロセスはbash(ID 24537)、プログラム/usr/bin/bashを呼び出して子プロセスbash（ID 24599）が生成されている
+      \begin{itemize}
+        \item また、psコマンド自体も子プロセスとして実行されている
+      \end{itemize}
   \end{itemize}
 
   \centering {
