@@ -63,7 +63,7 @@
 
   \begin{minipage}{0.3\textwidth}
     \includegraphics[width=1.2\linewidth,bb=0 0 698 412]{./images/cmd.png}
-    コマンドプロンプト（Windows）
+    コマンドプロンプト（cmd.exe; Windows）
 
     \includegraphics[width=1.2\linewidth,bb=0 0 620 388]{./images/powershell.png}
     PowerShell（Windows）
@@ -71,15 +71,15 @@
   \hfill
   \begin{minipage}{0.3\textwidth}
     \includegraphics[width=\linewidth,bb=0 0 734 487]{./images/ubuntu-gnome.png}
-    \begin{flushleft} \small Terminal（Ubuntu,Gnome） \end{flushleft}
+    \begin{flushleft} \small bash（Ubuntu, Gnome Terminal） \end{flushleft}
     \includegraphics[width=\linewidth,bb=0 0 734 487]{./images/ubuntu-cli.jpg}
-    CLI（Ubuntu）
+    Ubuntu CLIモード
   \end{minipage}
   \hfill
   \begin{minipage}{0.3\textwidth}
     \vspace{-5\baselineskip}
     \includegraphics[width=2.0\linewidth,bb=0 0 1144 735]{./images/mac-basic.png}
-    Terminal（macOS）
+    bash（macOS, Terminal）
   \end{minipage}
 
 \end{frame}
@@ -132,7 +132,7 @@
         \item 例：sh, bash, zsh, csh, コマンドプロンプト（cmd.exe）, PowerShellなど
         \item *shという名前のシェルはよく共通のコマンドを持っている
       \end{itemize}
-    \item シェルのコマンド
+    \item シェルコマンド
       \begin{itemize}
         \item 例：*shのコマンドls、cmd.exeのコマンドdir、PowerShellのコマンドGet-ChildItemはディレクトリ中のファイルリストを表示する
       \end{itemize}
@@ -143,7 +143,7 @@
 
 \begin{frame}{シェルとコマンド 2/2}
   \begin{itemize}
-    \item シェルのコマンド
+    \item シェルコマンド
       \begin{itemize}
         \item 例：*shのコマンドls、cmd.exeのコマンドdir、PowerShellのコマンドGet-ChildItemはディレクトリ中のファイルリストを表示する
       \end{itemize}
@@ -187,9 +187,11 @@
 
 \begin{frame}{ログインシェル}
   \begin{itemize}
-    \item テキストではbashを題材にしているので、ここからはbashを前提とする
+    \item テキストではbashを題材にしているので、ここからはUNIX, bashを前提とする
+
+    \item ログインシェル
       \begin{itemize}
-        \item なお、デフォルトのシェルをログインシェルという
+        \item デフォルトで使われるシェルのこと
         \item ログインシェルの指定はユーザ情報を保管するファイル/etc/passwdなどに書かれている
       \end{itemize}
 
@@ -304,7 +306,7 @@
 \end{frame}
 
 
-\begin{frame}{シェルスクリプトの記法}
+\begin{frame}{シェルスクリプトの記法 1/2}
   \begin{itemize}
     \item 改行
       \begin{itemize}
@@ -320,6 +322,13 @@
         \item 空行（何も書かれていない行）は無視される
       \end{itemize}
 
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{シェルスクリプトの記法 2/2}
+  \begin{itemize}
     \item コメント
       \begin{itemize}
         \item 実行されないテキストをスクリプト中に埋め込める
@@ -333,7 +342,8 @@
 
 \end{frame}
 
-\begin{frame}{カレントディレクトリ}
+
+\begin{frame}{カレントディレクトリとパス 1/2}
   \begin{itemize}
     \item pwd（positioning working directory）コマンド\\
       \texttt{pwd}
@@ -346,6 +356,13 @@
           \end{itemize}
       \end{itemize}
 
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{カレントディレクトリとパス 2/2}
+  \begin{itemize}
     \item cd（change directory）コマンド\\
       \texttt{cd MY\_PATH}
       \begin{itemize}
@@ -362,8 +379,108 @@
 \end{frame}
 
 
-\begin{frame}{以上です}
-てすと
+\begin{frame}{文字コード 1/2}
+  \begin{itemize}
+    \item 文字コード
+      \begin{itemize}
+        \item 文字をバイナリデータで表す際の符号
+        \item ASCIIで定義されている範囲についてはふつうASCII準拠
+          \begin{itemize}
+            \item ASCII（アスキー）：7ビットに英字・アラビア数字・記号・制御文字が割り当てられた有名な文字コード
+          \end{itemize}
+        \item Unicode（ユニコード）
+          \begin{itemize}
+            \item 多言語や絵文字に対応した文字コード
+            \item BOMなし UTF-8（主流）
+            \item BOMあり UTF-8（Windows メモ帳でいうUTF-8はこれ）
+            \item UTF-16など
+          \end{itemize}
+        \item Shift\_JIS
+          \begin{itemize}
+            \item 古い日本語文字コード
+          \end{itemize}
+        \item cp932（Shift\_JISのWindows環境での方言、ANSIとも）
+          \begin{itemize}
+            \item 文字コードの自動認識に失敗してよく文字化けする
+          \end{itemize}
+        \item など
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{文字コード 2/2}
+  \begin{itemize}
+    \item BOM（Byte Order Mark）
+      \begin{itemize}
+        \item エンディアンや文字コードの種類を区別するためにテキストファイルの先頭に置かれるバイナリデータ
+          \begin{itemize}
+            \item エンディアン：2バイト以上のデータを並べる順番
+            \item リトルエンディアン、ビッグエンディアン
+          \end{itemize}
+        \item これを考慮していない環境ではファイルの先頭が文字化けする
+          \begin{itemize}
+            \item スクリプトなら実行に失敗する
+          \end{itemize}
+      \end{itemize}
+
+    \item プログラムを書くのに「メモ帳」（notepad.exe）を使わないほうがいい、と思うのはこのあたりのせい
+      \begin{itemize}
+        \item インデント関連の機能もない
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{改行コード}
+  \begin{itemize}
+    \item 改行コード（主にOS依存）
+      \begin{itemize}
+        \item ASCIIには2種類の改行に関するコードが定義されている
+          \begin{itemize}
+            \item CR：Carriage Return
+            \item LF：Line Feed
+          \end{itemize}
+        \item OSによってこれらのコードをどう使って改行を表現するかが異なる（あくまでデフォルト値。エディタで設定できる）
+          \begin{itemize}
+            \item CR+LF：Windows
+            \item CR：古いMac
+            \item LF：Unix系OS、現在のMac
+          \end{itemize}
+        \item Windowsでスクリプトを編集すると改行コードCRが紛れ込む可能性がある
+          \begin{itemize}
+            \item そのままUnix上に持っていって実行するとCRがコマンドの一部として扱われてエラーになるおそれ
+          \end{itemize}
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{まとめ}
+
+  \begin{itemize}
+    \item シェル
+      \begin{itemize}
+        \item OSの機能にコマンドベースでアクセスするインタフェース
+      \end{itemize}
+    \item シェルスクリプト
+      \begin{itemize}
+        \item シェルコマンドをテキストファイルに列挙したもの
+      \end{itemize}
+    \item 文字コード・改行コード
+      \begin{itemize}
+        \item 意識してちゃんとしたエディタを使いましょう
+      \end{itemize}
+
+  \end{itemize}
+
 
 \end{frame}
 
@@ -392,6 +509,7 @@
 
 \end{frame}
 
+
 \begin{frame}{参考資料：プロセス}
   \begin{itemize}
     \item \url { https://ja.wikipedia.org/wiki/Fork }
@@ -403,7 +521,7 @@
 
 \begin{frame}{参考資料：スクリプト}
   \begin{itemize}
-    \item https://docs.microsoft.com/ja-jp/powershell/scripting/samples/\\ working-with-files-and-folders
+    \item \texttt {https://docs.microsoft.com/ja-jp/powershell/scripting/\\ samples/working-with-files-and-folders }
     \item \url { https://ja.wikipedia.org/wiki/Pwd }
   \end{itemize}
 
