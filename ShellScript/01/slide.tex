@@ -84,41 +84,80 @@
 
 \end{frame}
 
-\begin{frame}{シェルとは 1/3}
+\begin{frame}{シェルはどこに位置するか}
   \centering
   \includegraphics[width=12cm,bb=0 0 741 281]{./images/shell.png}
 
 \end{frame}
 
 
-\begin{frame}{シェルとは 2/3}
+\begin{frame}{OSとカーネル}
   \begin{itemize}
-    \item カーネル
+    \item カーネル（Kernel）
       \begin{itemize}
         \item OSの核となる（中心的な）機能の実装
           \begin{itemize}
             \item ファイルシステム、ネットワーク、入出力、プロセス管理など
           \end{itemize}
-        \item Linuxカーネル、macOSカーネル（XNU）、Windowsカーネル
-        \item Linuxディストリビューションと呼ばれるOSのカーネルはLinuxカーネルをベースにしている
+        \item 例：Linuxカーネル、macOSカーネル（XNU）、Windowsカーネル
+        \item 余談：Linuxディストリビューションと呼ばれるOSのカーネルはLinuxカーネルをベースにしている
           \begin{itemize}
             \item Debian GNU/Linux、Ubuntu、CentOSなど
           \end{itemize}
       \end{itemize}
-    \item シェル
+
+      \item OS
+        \begin{itemize}
+          \item カーネルにドライバや標準のソフトウェアなどを追加したパッケージ
+          \item 例：Ubuntu、CentOS、macOS、Windows
+        \end{itemize}
+
+      \item 例：C言語のfopen, fprintf, fcloseはファイルシステムに関するカーネルの機能を呼び出す関数（システムコール）
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{シェルとコマンド 1/2}
+  \begin{itemize}
+    \item シェル（Shell）
       \begin{itemize}
-        \item コマンドによりカーネルの機能を利用するアプリケーションの一種
+        \item コマンドによりカーネルの機能を利用するためのアプリケーションの一種
+          \begin{itemize}
+            \item 例：ファイルの作成、削除、プロセス管理、他のアプリケーションの起動
+          \end{itemize}
         \item ユーザに提供されるコマンドベースのカーネルへのインタフェース
           \begin{itemize}
             \item カーネル/核 の 殻/シェル
           \end{itemize}
+        \item 例：sh, bash, zsh, csh, コマンドプロンプト（cmd.exe）, PowerShellなど
+        \item *shという名前のシェルはよく共通のコマンドを持っている
+      \end{itemize}
+    \item シェルのコマンド
+      \begin{itemize}
+        \item 例：*shのコマンドls、cmd.exeのコマンドdir、PowerShellのコマンドGet-ChildItemはディレクトリ中のファイルリストを表示する
       \end{itemize}
   \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{シェルとは 3/3}
+\begin{frame}{シェルとコマンド 2/2}
+  \begin{itemize}
+    \item シェルのコマンド
+      \begin{itemize}
+        \item 例：*shのコマンドls、cmd.exeのコマンドdir、PowerShellのコマンドGet-ChildItemはディレクトリ中のファイルリストを表示する
+      \end{itemize}
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 659 481]{./images/ls.png}
+  }
+
+\end{frame}
+
+
+\begin{frame}{Explorerもシェル}
 
   \begin{minipage}{0.45\textwidth}
     \begin{itemize}
@@ -128,7 +167,7 @@
         \end{itemize}
       \item 例：コンテキストメニュー（右クリックメニュー）の動作
         \begin{itemize}
-          \item レジストリ中にコマンドで定義されている
+          \item レジストリ中にテキスト形式のコマンドで定義されている
           \item { \tiny 余談 }
             \begin{itemize}
               \item { \tiny レジストリを編集すれば自分でメニューを追加することもできる（間違ったところをいじらないように注意は必要） }
