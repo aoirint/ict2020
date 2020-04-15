@@ -42,30 +42,30 @@
 
 \end{frame}
 
-\begin{frame}{GUI 1/2}
-  \centering {
-    \includegraphics[width=12cm,bb=0 0 1920 1080]{./images/windows-explorer.png}
 
-    Windows Explorer
-  }
+\begin{frame}{シェル：GUI（Graphical User Interface）}
+
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=6cm,bb=0 0 659 481]{./images/explorer.png}
+    Explorer（Windows）
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=6cm,bb=0 0 892 640]{./images/nautilus.png}
+    Nautilus（Ubuntu, Gnome）
+  \end{minipage}
+
 \end{frame}
 
-\begin{frame}{GUI 2/2}
-  \centering {
-    \includegraphics[width=12cm,bb=0 0 1920 1080]{./images/gnome-desktop.png}
 
-    Ubuntu Gnome Desktop
-  }
-\end{frame}
-
-\begin{frame}{CLI}
+\begin{frame}{シェル：CLI（Command Line Interface）}
 
   \begin{minipage}{0.3\textwidth}
     \includegraphics[width=1.2\linewidth,bb=0 0 698 412]{./images/cmd.png}
     コマンドプロンプト（Windows）
 
     \includegraphics[width=1.2\linewidth,bb=0 0 620 388]{./images/powershell.png}
-    Powershell（Windows）
+    PowerShell（Windows）
   \end{minipage}
   \hfill
   \begin{minipage}{0.3\textwidth}
@@ -83,16 +83,68 @@
 
 \end{frame}
 
-\begin{frame}{シェルとは}
+\begin{frame}{シェルとは 1/3}
   \centering
   \includegraphics[width=12cm,bb=0 0 741 281]{./images/shell.png}
 
 \end{frame}
 
 
-\begin{frame}{Tips: Windows エクスプローラにコンテキストメニューを追加する}
+\begin{frame}{シェルとは 2/3}
+  \begin{itemize}
+    \item カーネル
+      \begin{itemize}
+        \item OSの核となる（中心的な）機能の実装
+          \begin{itemize}
+            \item ファイルシステム、ネットワーク、入出力、プロセス管理など
+          \end{itemize}
+        \item Linuxカーネル、macOSカーネル（XNU）、Windowsカーネル
+        \item Linuxディストリビューションと呼ばれるOSのカーネルはLinuxカーネルをベースにしている
+          \begin{itemize}
+            \item Debian GNU/Linux、Ubuntu、CentOSなど
+          \end{itemize}
+      \end{itemize}
+    \item シェル
+      \begin{itemize}
+        \item コマンドによりカーネルの機能を利用するアプリケーションの一種
+        \item ユーザに提供されるコマンドベースのカーネルへのインタフェース
+          \begin{itemize}
+            \item カーネル/核 の 殻/シェル
+          \end{itemize}
+      \end{itemize}
+  \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{シェルとは 3/3}
+
+  \begin{minipage}{0.45\textwidth}
+    \begin{itemize}
+      \item Explorer（Windows）もシェル
+        \begin{itemize}
+          \item GUIなのにコマンド？
+        \end{itemize}
+      \item 例：コンテキストメニュー（右クリックメニュー）の動作
+        \begin{itemize}
+          \item 図のようにレジストリ中にコマンドで定義されている
+          \item { \tiny 余談 }
+            \begin{itemize}
+              \item { \tiny レジストリを編集すれば自分でメニューを追加することもできる（間違ったところをいじらないように注意は必要） }
+              \item { \tiny u\_atomhere, u\_conemuhereは自分で追加した項目 }
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=6cm,bb=0 0 659 481]{./images/regedit.png}
+    { \tiny Windowsのレジストリ（フォルダをShift+右クリックしたときの「PowerShellで開く」コマンド） }
+  \end{minipage}
+
+\end{frame}
+
 
 \begin{frame}{以上です}
 てすと
