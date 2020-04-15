@@ -185,9 +185,19 @@
 \end{frame}
 
 
-\begin{frame}{シェルとプロセス 1/2}
+\begin{frame}{ログインシェル}
   \begin{itemize}
     \item テキストではbashを題材にしているので、ここからはbashを前提とする
+      \begin{itemize}
+        \item なお、デフォルトのシェルをログインシェルという
+        \item ログインシェルの指定はユーザ情報を保管するファイル/etc/passwdなどに書かれている
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+\begin{frame}{シェルとプロセス 1/2}
+  \begin{itemize}
     \item プロセスの親子関係
       \begin{itemize}
         \item シェル上でコマンドを実行したとき、シェルのプロセスに対する子プロセスが生成される
@@ -196,7 +206,7 @@
       \begin{itemize}
         \item 親となるプロセスのメモリ内容（アドレス空間）をコピーして作られる
         \item メモリがコピーされているため、親プロセスのシェル上の環境変数などを引き継ぐ
-        \item プログラムを呼び出すコマンドが実行されると、forkシステムコールにより子プロセスが生成されたあと、exec系システムコールによりプログラムが子プロセスのアドレス空間に読み出される
+        \item プログラムを呼び出すコマンドが実行されると、forkシステムコールにより子プロセスが生成されたあと、exec系システムコールによりプログラムが子プロセスのアドレス空間（メモリ領域）に読み出される
       \end{itemize}
 
   \end{itemize}
@@ -211,14 +221,56 @@
         \item プロセスリストを表示するコマンド
         \item ps fはプロセスの親子関係をグラフィカルに表示する
       \end{itemize}
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/child-process.png}
+  }
+
+  \begin{itemize}
     \item 親プロセスはbash(ID 24537)、プログラム/usr/bin/bashを呼び出して子プロセスbash（ID 24599）が生成されている
       \begin{itemize}
         \item また、psコマンド自体も子プロセスとして実行されている
       \end{itemize}
   \end{itemize}
 
+\end{frame}
+
+
+\begin{frame}{シェルスクリプトとは}
+  \begin{itemize}
+    \item シェルのコマンドを列挙したテキストファイル
+    \item ファイルをシェルプログラムに与えることで実行する
+    \item 複数のコマンドや複雑なコマンドをいちいち入力する必要がなくなる
+      \begin{itemize}
+        \item 複数のコマンド
+          \begin{itemize}
+            \item コマンドを組み合わせた定型処理
+          \end{itemize}
+        \item 複雑なコマンド
+          \begin{itemize}
+            \item たくさんのオプションを指定するプログラム
+            \item 例：動画像・音声処理プログラムのffmpegなど
+          \end{itemize}
+        \item if, forなどの制御構造を含むプログラム
+        \item 起動時・ログイン時の初期化プログラム
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{シェルスクリプトを実行する}
+  \begin{itemize}
+    \item command.shファイルを作成 \\
+    \texttt {
+      echo "Hello Shell Script!"
+    }
+    \item \texttt{bash command.sh} で実行
+  \end{itemize}
+
   \centering {
-    \includegraphics[width=6cm,bb=0 0 734 487]{./images/child-process.png}
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/exec-sh.png}
   }
 
 \end{frame}
