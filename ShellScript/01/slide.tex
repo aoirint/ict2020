@@ -263,14 +263,42 @@
 \begin{frame}{シェルスクリプトを実行する}
   \begin{itemize}
     \item command.shファイルを作成 \\
-    \texttt {
-      echo "Hello Shell Script!"
-    }
+      \texttt {
+        echo "Hello Shell Script!"
+      }
     \item \texttt{bash command.sh} で実行
   \end{itemize}
 
   \centering {
     \includegraphics[width=6cm,bb=0 0 734 487]{./images/exec-sh.png}
+  }
+
+\end{frame}
+
+
+\begin{frame}{shebang}
+  \begin{itemize}
+    \item command.shの1行目に以下を追記する \\
+      \texttt {
+        !\#/bin/bash
+      }
+      \begin{itemize}
+        \item これはshebangという記法（/bin は /usr/bin へのシンボリックリンク）
+        \item ファイルの実行時にファイルパスを渡すプログラムを記述する（シェルでなくてもよい; ex.CGIスクリプト）
+      \end{itemize}
+    \item command.shに実行権限を付与する \\
+      \texttt {
+        chmod +x command.sh
+      }
+    \item \texttt{./command.sh} で実行
+      \begin{itemize}
+        \item \texttt{command.sh}を\texttt{command}にリネームすると\texttt{./command}で実行できる
+      \end{itemize}
+
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/exec-sh2.png}
   }
 
 \end{frame}
