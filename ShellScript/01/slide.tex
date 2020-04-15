@@ -107,8 +107,8 @@
 
       \item OS
         \begin{itemize}
-          \item カーネルにドライバや標準のソフトウェアなどを追加したパッケージ
-          \item 例：Ubuntu、CentOS、macOS、Windows
+          \item カーネルにハードウェアドライバや標準のソフトウェアなどを追加したパッケージ
+          \item 例：Ubuntu、CentOS、macOS、Windows（バージョン略）
         \end{itemize}
 
       \item 例：C言語のfopen, fprintf, fcloseはファイルシステムに関するカーネルの機能を（最終的に）呼び出す関数（システムコール）
@@ -185,6 +185,42 @@
 \end{frame}
 
 
+\begin{frame}{シェルとプロセス}
+  \begin{itemize}
+    \item テキストではbashを題材にしているので、ここからはbashを前提とする
+    \item プロセスの親子関係
+      \begin{itemize}
+        \item シェル上でコマンドを実行したとき、シェルのプロセスに対する子プロセスが生成される
+      \end{itemize}
+    \item 子プロセス
+      \begin{itemize}
+        \item 親となるプロセスのメモリ内容（アドレス空間）をコピーして作られる
+        \item メモリがコピーされているため、親プロセスのシェル上の環境変数などを引き継ぐ
+        \item プログラムを呼び出すコマンドが実行されると、forkシステムコールにより子プロセスが生成されたあと、exec系システムコールによりプログラムが子プロセスのアドレス空間に読み出される
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{シェルとプロセス}
+  \begin{itemize}
+    \item psコマンド
+      \begin{itemize}
+        \item プロセスリストを表示するコマンド
+        \item ps fはプロセスの親子関係をグラフィカルに表示する
+      \end{itemize}
+    \item 親プロセスはbash(ID 24537)、プログラム/usr/bin/bashを呼び出して子プロセスbash（ID 24599）が生成されている
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/child-process.png}
+  }
+
+\end{frame}
+
+
 \begin{frame}{以上です}
 てすと
 
@@ -210,12 +246,21 @@
     \item \url { https://ja.wikipedia.org/wiki/MacOS }
     \item \url { https://ja.wikipedia.org/wiki/XNU }
     \item \url { https://www.atmarkit.co.jp/ait/articles/1112/13/news117.html }
+    \item \texttt {https://ja.wikipedia.org/wiki/\%E3\%82\%AA\%E3\%83\%9A \\ \%E3\%83\%AC\%E3\%83\%BC\%E3\%83\%86\%E3\%82\%A3\%E3\%83\%B3\%E3\%82\%B0 \\ \%E3\%82\%B7\%E3\%82\%B9\%E3\%83\%86\%E3\%83\%A0 }
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{参考資料：プロセス}
+  \begin{itemize}
+    \item \url { https://ja.wikipedia.org/wiki/Fork }
+    \item \url { https://kazmax.zpp.jp/linux_beginner/process_ps.html }
   \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{参考資料：Windows スクリプトについて}
+\begin{frame}{参考資料：Windows スクリプト}
   \begin{itemize}
     \item https://docs.microsoft.com/ja-jp/powershell/scripting/samples/\\ working-with-files-and-folders
   \end{itemize}
