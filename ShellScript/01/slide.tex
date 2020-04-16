@@ -335,7 +335,7 @@
       \begin{itemize}
         \item 実行されないテキストをスクリプト中に埋め込める
         \item 文字\#以降のその行はコメント\\
-          \texttt{echo Hello \# shell say Hello }
+          \texttt{echo Hello \# shell says Hello }
         \item コメントアウト（コマンドをコメントにして実行されないようにする）\\
           \texttt{\# echo Hello }
       \end{itemize}
@@ -465,20 +465,25 @@
 \end{frame}
 
 
-\begin{frame}{まとめ}
+\begin{frame}{ここまでのまとめ}
 
   \begin{itemize}
     \item シェル
       \begin{itemize}
         \item OSの機能にコマンドベースでアクセスするインタフェース
+        \item グラフィカルシェル
+        \item コマンドラインシェル
       \end{itemize}
     \item シェルスクリプト
       \begin{itemize}
         \item シェルコマンドをテキストファイルに列挙したもの
+        \item シェルのプログラムにファイルパスを渡して実行する
+        \item shebangをスクリプトの先頭に書いて実行することもできる
       \end{itemize}
     \item 文字コード・改行コード
       \begin{itemize}
-        \item 意識してちゃんとしたエディタを使いましょう
+        \item OSをまたぐときは特に注意する
+        \item ちゃんとしたエディタを使うのがよい
       \end{itemize}
 
   \end{itemize}
@@ -486,6 +491,154 @@
 
 \end{frame}
 
+
+\begin{frame}{変数}
+  \begin{itemize}
+    \item 変数
+      \begin{itemize}
+        \item 文字列や数値などの値に名前を付けて格納することができる
+        \item 変数名にはアルファベットの大文字、小文字・数字・アンダースコアの組み合わせが使える（ただし先頭に数字は使えない）
+        \item 例：my\_var, dir1, \_temp, CONST\_VAR, MyName
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{変数の作成}
+  \begin{itemize}
+    \item 変数の作成
+      \begin{itemize}
+        \item C言語などのように事前に宣言する必要はない
+        \item 変数に値を代入することで自動的に変数が作成される
+        \item 代入 \\
+              \texttt{variable=VALUE}
+        \item スペースやタブを含む場合は引用符で囲む \\
+              \texttt{variable='My variable'} \\
+              \texttt{variable="My variable"}
+        \item 特に指定しない場合、変数の値は文字列として扱われる（数値として扱う方法もある）
+        \item 空文字列の代入 \\
+              \texttt{variable=}
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{変数の参照}
+  \begin{itemize}
+    \item 変数の参照
+      \begin{itemize}
+        \item 変数を作成/代入するときは\$を付けたりする必要はなかった
+        \item 変数の値を参照するときには変数名の前に\$を付ける \\
+              \texttt{echo \$variable}
+        \item 一度も値を設定していない変数を参照してもエラーにならない（空文字列として扱われる） \\
+              \texttt{echo \$UNDEFINED\_VARIABLE}
+        \item 代入時の左辺に\$を付けるとエラーになるので注意
+        \item 変数の値と文字列を結合できる \\
+              \texttt{echo ABC \$variable DEF}
+        \item 変数名と文字列を区別する場合には変数名を\{\}で囲む \\
+              \texttt{echo ABC\$\{variable\}DEF}
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{環境変数とは}
+  \begin{itemize}
+    \item 環境変数
+      \begin{itemize}
+        \item 子プロセス（コマンド）に引き継がれる変数
+        \item 通常のシェル変数は子プロセスに引き継がれない
+        \item forkシステムコールは親プロセスから子プロセスに環境変数をコピーする
+        \item 環境変数はプログラム自体を変更せずに設定を切り替えるためによく使われる
+          \begin{itemize}
+            \item 仮想化ソフトウェアのDocker上でプログラムを動作させるとき、設定のために特に環境変数が使われることが多い
+          \end{itemize}
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{環境変数の例}
+  \begin{itemize}
+    \item 環境変数LANG
+      \begin{itemize}
+        \item 使用する言語を表す環境変数
+      \end{itemize}
+
+    \item すでに定義されている環境変数を変更するときは通常の変数と同じように代入するだけでよい
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/lang.png}
+  }
+
+\end{frame}
+
+\begin{frame}{環境変数の設定}
+  \begin{itemize}
+    \item exportコマンド
+      \begin{itemize}
+        \item 変数を環境変数として設定する \\
+              \texttt{export variable}
+        \item 変数に代入しつつ環境変数として設定する \\
+              \texttt{export variable=VALUE}
+      \end{itemize}
+
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/export.png}
+  }
+
+\end{frame}
+
+\begin{frame}{一時的な環境変数の設定}
+  \begin{itemize}
+    \item コマンドの前に変数への代入を書くことができる \\
+          \texttt{variable=VALUE bash}
+      \begin{itemize}
+        \item このように設定された変数は、子プロセス中でのみ有効な環境変数となる
+        \item 親プロセスに復帰したとき、ここで設定した変数の値は反映されない
+      \end{itemize}
+
+  \end{itemize}
+
+  \centering {
+    \includegraphics[width=6cm,bb=0 0 734 487]{./images/export2.png}
+  }
+
+\end{frame}
+
+\begin{frame}{ここまでのまとめ}
+  \begin{itemize}
+    \item 変数
+      \begin{itemize}
+        \item 値に名前を付けて格納できる
+        \item 変数への代入 \\
+              \texttt{variable=VALUE}
+        \item 変数の参照 \\
+              \texttt{echo \$variable}
+      \end{itemize}
+    \item 環境変数
+      \begin{itemize}
+        \item 子プロセス（コマンド）に引き継がれる変数
+        \item 環境変数の設定 \\
+              \texttt{export variable=VALUE}
+        \item 子プロセス用の環境変数の設定 \\
+              \texttt{variable=VALUE command}
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
 
 \begin{frame}{参考資料：Beamer}
   \begin{itemize}
