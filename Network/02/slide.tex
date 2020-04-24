@@ -1,0 +1,248 @@
+\documentclass[12pt,aspectratio=169]{beamer}
+\usetheme{default}
+\usecolortheme{dolphin}
+\usefonttheme{structurebold}
+\setbeamertemplate{footline}[frame number]
+
+\title{Network 02}
+\author{@aoirint}
+\date{2020/04/24}
+%\institute{}
+
+\begin{document}
+
+% 01
+\frame{\maketitle}
+
+% 02
+\begin{frame}{テキスト}
+
+  \begin{minipage}{0.58\textwidth}
+    \begin{itemize}
+      \item ネットワークがよくわかる教科書
+      \begin{itemize}
+        \item 著・福永勇二
+        \item 刊・SB Creative
+      \end{itemize}
+      \item 今回の内容：Chapter 2、Section 1-9
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.38\textwidth}
+    \vspace{-1\baselineskip}
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=4cm,bb=0 0 420 596]{./figures/networkbook.jpg}
+      \label{fig:networkbook}
+      \caption{テキスト}
+    \end{figure}
+  \end{minipage}
+
+  \begin{itemize}
+    \item 書影
+    \begin{itemize}
+      \item { \small \url{https://www.sbcr.jp/product/4797393804/} }
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{今回の内容}
+
+  \begin{itemize}
+    \item TCP/IPの基本的な概念
+      \begin{itemize}
+        \item IP、ICMP、TCP、UDP
+        \item IPアドレス、ポート番号
+      \end{itemize}
+    \item IP、TCP、UDPのデータ構造
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{ネットワークプロトコル 1/2}
+
+  \begin{itemize}
+    \item TCP/IP 4階層モデル
+      \begin{itemize}
+        \item ネットワークインタフェース層（Chapter 3）
+          \begin{itemize}
+            \item 例：Ethernet
+          \end{itemize}
+        \item \textgt {インターネット層（Chapter 2）}
+          \begin{itemize}
+            \item 例：IP、ICMP
+          \end{itemize}
+        % https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E5%B1%A4
+        \item \textgt {トランスポート層（Chapter 2）}
+          \begin{itemize}
+            \item 例：TCP、UDP、QUIC
+          \end{itemize}
+        % https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%B1%A4
+        \item アプリケーション層（Chapter 4以降）
+          \begin{itemize}
+            \item よく使われる例：HTTP、TLS、SSH、DNS、DHCP、NTP
+            \item Eメール・メッセージ：IMAP、POP、SMTP、IRC、XMPP
+            \item ファイル：FTP、SMB、NFS、WebDAV
+          \end{itemize}
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{ネットワークプロトコル 2/2}
+
+  \begin{itemize}
+    \item インターネット層
+      \begin{itemize}
+        \item IP（Internet Protocol）
+        \item ICMP（Internet Control Message Protocol）
+      \end{itemize}
+
+    \item トランスポート層
+      \begin{itemize}
+        \item TCP（Transmission Control Protocol）
+        \item UDP（User Datagram Protocol）
+        \item 余談：QUIC（Quick UDP Internet Connections）
+          \begin{itemize}
+            \item UDPをもとにしたプロトコル
+            \item 従来アプリケーション層（TLS over TCP）で実装されていた暗号化をトランスポート層レベルでサポート（高速化に貢献）など
+            % 一度TCPの接続を確立してからTLSの情報をやりとりしていた→接続の確立と同時に暗号化に必要な情報をやりとりできるようになる、往復、RTT
+            \item 主要な通信であるTCPの高速な代替を目標にGoogleやIETFが実験・開発中
+            % https://ja.wikipedia.org/wiki/QUIC
+            % https://ja.wikipedia.org/wiki/Internet_Engineering_Task_Force
+            % https://qiita.com/flano_yuki/items/251a350b4f8a31de47f5
+          \end{itemize}
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{ネットワークインタフェース層}
+
+  \begin{itemize}
+    \item ネットワークインタフェース層の機能
+      \begin{itemize}
+        \item 同じネットワーク内でお互いに通信できるようにする
+        \item 同じネットワーク
+          \begin{itemize}
+            \item LANケーブルやL2スイッチで直接コンピュータを接続した1つのネットワーク
+          \end{itemize}
+        \item 詳しいことは第3章（次章）で
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{インターネット層}
+
+  \begin{itemize}
+    \item インターネット層の機能
+      \begin{itemize}
+        \item 異なるネットワーク間でお互いに通信できるようにする
+        \item 異なるネットワーク
+          \begin{itemize}
+            \item ルータやL3スイッチによって接続された2つ以上のネットワーク
+            \item 「ネットワーク」の区切りはルータ
+          \end{itemize}
+
+          \item ルータを挟んでネットワーク間でパケット（バイナリデータ）を中継する
+            \begin{itemize}
+              \item パケットの中継をルーティングという
+            \end{itemize}
+          \item 機器に割り当てられたアドレスによって通信相手を特定する
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{インターネット層のプロトコル}
+
+  \begin{itemize}
+    \item インターネット層のプロトコル
+      \begin{itemize}
+        \item Internet Protocol（IP）
+          \begin{itemize}
+            \item 代表的なインターネット層のプロトコル
+            \item IPアドレスの「IP」
+            \item 主要なアプリケーションのデータのやり取りを行う
+          \end{itemize}
+
+        \item Internet Control Message Protocol（ICMP）
+          \begin{itemize}
+            \item ネットワーク機能を維持する裏方のプロトコル
+            \item ネットワーク経路の検査や通信に使う制御情報のやり取りを行う
+          \end{itemize}
+
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{トランスポート層}
+
+  \begin{itemize}
+    \item トランスポート層の機能
+      \begin{itemize}
+        \item 通信の信頼性や速度を目的に応じて調節する
+          \begin{itemize}
+            \item 通信の前に相手に（インターネット層を通じて）到達できるか・通信できるか確認する（コネクション指向性）
+            \item 破損したり失われたりしたパケットの再送
+            \item バッファを考慮したパケットの順序制御
+          \end{itemize}
+
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{トランスポート層のプロトコル}
+
+  \begin{itemize}
+    \item トランスポート層のプロトコル
+      \begin{itemize}
+        \item TCP（Transmission Control Protocol）
+          \begin{itemize}
+            \item 代表的なトランスポート層のプロトコル
+            \item 確実に相手に届ける（信頼性が高い）
+          \end{itemize}
+
+        \item UDP（User Diagram Protocol）
+          \begin{itemize}
+            \item 相手に届くかどうか・届いたかどうかを確認しない（信頼性が低い）
+            \item 高速
+          \end{itemize}
+
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{タイトル}
+
+  \begin{itemize}
+    \item 項目
+
+  \end{itemize}
+
+\end{frame}
+
+
+
+\end{document}
