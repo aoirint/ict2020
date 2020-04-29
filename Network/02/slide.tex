@@ -6,7 +6,7 @@
 
 \title{Network 02}
 \author{@aoirint}
-\date{2020/04/24}
+\date{2020/04/30}
 %\institute{}
 
 \begin{document}
@@ -61,7 +61,20 @@
 \end{frame}
 
 
-\begin{frame}{ネットワークプロトコル 1/2}
+\begin{frame}{ネットワークプロトコル 1/3}
+
+  \centering
+  \begin{figure}
+    \centering
+    \includegraphics[width=12cm,bb=0 0 1352 676]{./figures/text_figure1_11.png}
+    \label{fig:text_figure1_11}
+    \caption{TCP/IP 4階層モデル（テキスト p.13より引用）}
+  \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{ネットワークプロトコル 2/3}
 
   \begin{itemize}
     \item TCP/IP 4階層モデル
@@ -94,7 +107,7 @@
 \end{frame}
 
 
-\begin{frame}{ネットワークプロトコル 2/2}
+\begin{frame}{ネットワークプロトコル 3/3}
 
   \begin{itemize}
     \item インターネット層
@@ -133,8 +146,15 @@
         \item 同じネットワーク
           \begin{itemize}
             \item LANケーブルやL2スイッチで直接コンピュータを接続した1つのネットワーク
+            \item ルータは含まない
           \end{itemize}
-        \item 詳しいことは第3章（次章）で
+        \item コンピュータは電気信号や光信号でお互いにやり取りする
+          \begin{itemize}
+            \item NIC / Network Interface Card
+            \item LANケーブル（RJ-45コネクタ）・Wi-Fi
+          \end{itemize}
+        \item 物理アドレス（MACアドレス）によって通信相手を特定する
+        \item 詳しいことは第3章（次章）以降で
 
       \end{itemize}
 
@@ -143,7 +163,7 @@
 \end{frame}
 
 
-\begin{frame}{インターネット層}
+\begin{frame}{インターネット層 1/2}
 
   \begin{itemize}
     \item インターネット層の機能
@@ -155,11 +175,11 @@
             \item 「ネットワーク」の区切りはルータ
           \end{itemize}
 
-          \item ルータを挟んでネットワーク間でパケット（バイナリデータ）を中継する
-            \begin{itemize}
-              \item パケットの中継をルーティングという
-            \end{itemize}
-          \item 機器に割り当てられたアドレスによって通信相手を特定する
+        \item ネットワークを分割して互いに接続すること
+          \begin{itemize}
+            \item インターネットワーキング
+          \end{itemize}
+          % 第1章でメリットが語られている
 
       \end{itemize}
 
@@ -168,25 +188,21 @@
 \end{frame}
 
 
-\begin{frame}{インターネット層のプロトコル}
+\begin{frame}{インターネット層 2/2}
 
   \begin{itemize}
-    \item インターネット層のプロトコル
+    \item インターネット層の機能
       \begin{itemize}
-        \item Internet Protocol（IP）
-          \begin{itemize}
-            \item 代表的なインターネット層のプロトコル
-            \item IPアドレスの「IP」
-            \item 主要なアプリケーションのデータのやり取りを行う
-          \end{itemize}
 
-        \item Internet Control Message Protocol（ICMP）
+        \item ルータはネットワークとネットワークをつなぐ
+        \item 論理アドレス（IPアドレス）によって通信相手を特定する
           \begin{itemize}
-            \item ネットワーク機能を維持する裏方のプロトコル
-            \item ネットワーク経路の検査や通信に使う制御情報のやり取りを行う
+            \item ルータはパケット（データ）に含まれるIPアドレスをもとに、どのネットワークに送るか判断する（パケットを中継する）
+            \item パケットの中継をルーティングという
           \end{itemize}
 
       \end{itemize}
+
   \end{itemize}
 
 \end{frame}
@@ -201,7 +217,7 @@
           \begin{itemize}
             \item 通信の前に相手に（インターネット層を通じて）到達できるか・通信できるか確認する（コネクション指向性）
             \item 破損したり失われたりしたパケットの再送
-            \item バッファを考慮したパケットの順序制御
+            \item 通信相手や経路の性能などを考慮したパケットの制御
           \end{itemize}
 
       \end{itemize}
@@ -211,21 +227,85 @@
 \end{frame}
 
 
-\begin{frame}{トランスポート層のプロトコル}
+\begin{frame}{プロトコルと層}
+
+  \begin{itemize}
+    \item プロトコル
+      \begin{itemize}
+        \item 各層の機能を実現するための通信のルール
+
+      \end{itemize}
+
+    \item 層
+      \begin{itemize}
+        \item 通信において必要とされる機能を分割する
+        \item 通信の目的（求められる機能）に応じて層ごとにプロトコルを交換できる
+        \item 異なる層でどのようなプロトコルが使われているかを無視できる
+
+      \end{itemize}
+
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{インターネット層のプロトコル}
+
+  \begin{itemize}
+    \item インターネット層のプロトコル
+      \begin{itemize}
+        \item 異なるネットワーク間でお互いに通信できるようにする
+        \item Internet Protocol（IP）
+          \begin{itemize}
+            \item 代表的なインターネット層のプロトコル
+            \item IPアドレスの「IP」
+            \item 主要なアプリケーションのデータのやり取りを行う
+          \end{itemize}
+
+        \item Internet Control Message Protocol（ICMP）
+          \begin{itemize}
+            \item ネットワーク機能を維持する裏方のプロトコル
+            \item ネットワーク経路の検査や通信に使う制御情報のやり取りを行う（pingなど）
+            \item IPパケットに含まれるデータとしてやりとりされるが、提供する機能の種類からインターネット層に分類される
+          \end{itemize}
+
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{トランスポート層のプロトコル 1/2}
 
   \begin{itemize}
     \item トランスポート層のプロトコル
       \begin{itemize}
+        \item 通信の信頼性や速度を目的に応じて調節する
         \item TCP（Transmission Control Protocol）
           \begin{itemize}
             \item 代表的なトランスポート層のプロトコル
             \item 確実に相手に届ける（信頼性が高い）
+            \item HTTP（Webページ）、POP/IMAP/SMTP（メール）など
           \end{itemize}
 
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{トランスポート層のプロトコル 2/2}
+
+  \begin{itemize}
+    \item トランスポート層のプロトコル
+      \begin{itemize}
         \item UDP（User Diagram Protocol）
           \begin{itemize}
             \item 相手に届くかどうか・届いたかどうかを確認しない（信頼性が低い）
-            \item 高速
+            \item 速く相手に届ける（高速な通信）
+            \item DOMAIN（DNS）、NTP（時刻調整）、RTP（音声や動画のストリーミング）など
           \end{itemize}
 
       \end{itemize}
