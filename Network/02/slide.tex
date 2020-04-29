@@ -24,8 +24,13 @@
         \item 著・福永勇二
         \item 刊・SB Creative
       \end{itemize}
-      \item 今回の内容：Chapter 2、Section 1-9
+      \item 今回の内容
+        \begin{itemize}
+          \item Chapter 2、Section 1から5の途中まで
+        \end{itemize}
+
     \end{itemize}
+
   \end{minipage}
   \hfill
   \begin{minipage}{0.38\textwidth}
@@ -52,10 +57,12 @@
   \begin{itemize}
     \item TCP/IPの基本的な概念
       \begin{itemize}
-        \item IP、ICMP、TCP、UDP
-        \item IPアドレス、ポート番号
+        \item ネットワークプロトコル（TCP/IP 4階層モデル）
+        \item インターネット層で使われるプロトコルの概要（IP、ICMP）
+        \item トランスポート層で使われるプロトコルの概要（TCP、UDP）
+        \item IPアドレス（p.44 ネットワークアドレスまで）
       \end{itemize}
-    \item IP、TCP、UDPのデータ構造
+    \item 徐々に掘り下げながら、といった構成なので今回は概要の説明が主
   \end{itemize}
 
 \end{frame}
@@ -102,6 +109,8 @@
 
       \end{itemize}
 
+    \item { \small 今回はインターネット層がメイン }
+
   \end{itemize}
 
 \end{frame}
@@ -132,6 +141,8 @@
           \end{itemize}
       \end{itemize}
 
+    \item { \small 今回はIPの説明に少しだけ入る }
+
   \end{itemize}
 
 \end{frame}
@@ -148,7 +159,7 @@
             \item LANケーブルやL2スイッチで直接コンピュータを接続した1つのネットワーク
             \item ルータは含まない
           \end{itemize}
-        \item コンピュータは電気信号や光信号でお互いにやり取りする
+        \item コンピュータは電気信号/電波や光信号でお互いにやり取りする
           \begin{itemize}
             \item NIC / Network Interface Card
             \item LANケーブル（RJ-45コネクタ）・Wi-Fi
@@ -240,7 +251,7 @@
       \begin{itemize}
         \item 通信において必要とされる機能を分割する
         \item 通信の目的（求められる機能）に応じて層ごとにプロトコルを交換できる
-        \item 異なる層でどのようなプロトコルが使われているかを無視できる
+        \item 異なる層でどのようなプロトコルが使われているかを（ある程度）無視できる
 
       \end{itemize}
 
@@ -261,6 +272,7 @@
             \item 代表的なインターネット層のプロトコル
             \item IPアドレスの「IP」
             \item 主要なアプリケーションのデータのやり取りを行う
+            \item バージョン：IPv4、IPv6
           \end{itemize}
 
         \item Internet Control Message Protocol（ICMP）
@@ -287,7 +299,7 @@
           \begin{itemize}
             \item 代表的なトランスポート層のプロトコル
             \item 確実に相手に届ける（信頼性が高い）
-            \item HTTP（Webページ）、POP/IMAP/SMTP（メール）など
+            \item アプリケーションプロトコルの例：HTTP（Webページ）、POP/IMAP/SMTP（メール）など
           \end{itemize}
 
       \end{itemize}
@@ -304,8 +316,8 @@
         \item UDP（User Diagram Protocol）
           \begin{itemize}
             \item 相手に届くかどうか・届いたかどうかを確認しない（信頼性が低い）
-            \item 速く相手に届ける（高速な通信）
-            \item DOMAIN（DNS）、NTP（時刻調整）、RTP（音声や動画のストリーミング）など
+            \item 速く相手に届ける（高速/低遅延の通信）
+            \item アプリケーションプロトコルの例：DOMAIN（DNS）、NTP（時刻調整）、RTP（音声や動画のストリーミング）など
           \end{itemize}
 
       \end{itemize}
@@ -314,15 +326,224 @@
 \end{frame}
 
 
-\begin{frame}{タイトル}
+\begin{frame}{IPアドレス 1/2}
 
   \begin{itemize}
-    \item 項目
+    \item IPアドレス
+      \begin{itemize}
+        \item インターネット層（ネットワーク間をつなぐ層）で使われる論理アドレス
+        \item インターネットで使われるIPアドレスは重複しないように管理されている
+          \begin{itemize}
+            \item IANA（国際）をトップとする階層構造の組織
+          \end{itemize}
+      \end{itemize}
 
   \end{itemize}
 
 \end{frame}
 
+
+\begin{frame}{IPアドレス 2/2}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=5cm,bb=0 0 382 460]{./figures/ipreg.png}
+    \label{fig:ipreg}
+    \caption{IPアドレスの管理構造（JPNIC Webサイトより）}
+  \end{figure}
+
+  \centering
+  { \small 引用：\url { https://www.nic.ad.jp/ja/ip/admin.html } }
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスの種類 1/2}
+  \begin{itemize}
+    \item IPv4アドレス
+      \begin{itemize}
+        \item 32ビットの数値（だいたい\( 2^{32} \simeq 43 \)億個）
+        \item 8ビット（1バイト）ずつに区切って4つの10進数で表示する
+        \item UEC 学内ネットワーク: 130.153.0.0〜130.153.255.255（130.153.0.0/16）
+        % 実験用ネットワークなどを除く
+      \end{itemize}
+    \item { \small 参考：\url { https://www.cc.uec.ac.jp/srv/infra/ip_manage.html } }
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスの種類 2/2}
+
+  \begin{itemize}
+    \item IPv6アドレス
+      \begin{itemize}
+        \item 128ビットの数値（だいたい\( (2^{32})^4 \simeq 3.4 \times 10^{38} \)個）
+        \item 16ビット（2バイト）ずつに区切って8つの16進数で表示する
+        \item UEC: 2001:02f8:0026:0000:0000:0000:0000:0000〜2001:02f8:0026:ffff:ffff:ffff:ffff:ffff（2001:02f8:0026::/48）
+        \item 詳しくは第2章16節
+      \end{itemize}
+    \item { \small 参考：\url { https://www.cc.uec.ac.jp/srv/infra/ip_manage.html } }
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスの例}
+
+  \begin{itemize}
+    \item IPアドレスの例
+      \begin{itemize}
+        \item www.uec.ac.jp: 130.153.9.34
+      \end{itemize}
+
+  \end{itemize}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=12cm,bb=0 0 741 91]{./figures/ipaddr.png}
+    \label{fig:ipaddr}
+    \caption{電通大HPサーバのIPv4アドレス}
+  \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスの構成 1/2}
+
+  \begin{itemize}
+    \item IPアドレスは「ネットワーク部」と「ホスト部」から構成される
+    \item ネットワーク部（左側）
+      \begin{itemize}
+        \item 目的地までの途中にあるルータがどのネットワークにパケットを送るかを決めるための部分
+      \end{itemize}
+    \item ホスト部（右側）
+      \begin{itemize}
+        \item 目的地のネットワークにあるルータがどのホスト（コンピュータ）にパケットを送るかを決めるための部分
+      \end{itemize}
+    \item ネットワーク部とホスト部にそれぞれ何ビット分をつかうかはIPアドレスによって異なる
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスの構成 2/2}
+
+  \begin{itemize}
+    \item 電通大HPサーバのIPアドレス
+    \begin{itemize}
+      \item 左側16ビット：ネットワーク部（青）
+      \item 右側16ビット：ホスト部（灰）
+    \end{itemize}
+  \end{itemize}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=12cm,bb=0 0 741 91]{./figures/ipaddr.png}
+    \label{fig:ipaddr_re}
+    \caption{電通大HPサーバのIPv4アドレス（再掲）}
+  \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスのクラス}
+
+    \begin{itemize}
+      \item IPアドレスはネットワーク部の長さによって分類される（クラス）
+      \item ネットワーク部の長さはIPアドレスの先頭の数ビットで表される
+      \item クラスA（8ビット）、クラスB（16ビット）、クラスC（24ビット）
+      \begin{itemize}
+        \item 特殊なIPアドレスとしてクラスD、Eもあるが省略
+      \end{itemize}
+    \end{itemize}
+
+    \begin{figure}
+      \centering
+      \includegraphics[width=12cm,bb=0 0 741 134]{./figures/ipblock_abc.png}
+      \label{fig:ipblock_abc}
+      \caption{クラスA、B、Cのネットワーク部の長さと先頭ビット}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{IPアドレスのクラスと収容できるネットワーク・ホスト数}
+
+  \begin{itemize}
+    \item クラスA：0.0.0.0〜127.255.255.255
+      \begin{itemize}
+        \item ネットワーク数：128ネットワーク（\( 2^{7} \)）
+        \item ホスト数：約1700万台（\( 2^{24} - 2 \)）
+      \end{itemize}
+    \item クラスB：128.0.0.0〜191.255.255.255
+      \begin{itemize}
+        \item ネットワーク数：約17000ネットワーク（\( 2^{14} \)）
+        \item ホスト数：65534台（\( 2^{16} - 2 \)）
+      \end{itemize}
+    \item クラスC：192.0.0.0〜223.255.255.255
+      \begin{itemize}
+        \item ネットワーク数：約200万ネットワーク（\( 2^{21} \)）
+        \item ホスト数：254台（\( 2^{8} - 2 \)）
+      \end{itemize}
+    \item { \small ※ 最終桁が0または255の場合、特別な意味を持つためホストに使用できない }
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{ネットワークアドレス}
+
+  \begin{itemize}
+    \item ネットマスク
+      \begin{itemize}
+        \item IPアドレスとAND演算したときネットワーク部だけが得られるビット列（数値）
+        \item AND演算の例：0b1011 \& 0b1101 = 0b1001
+        \item クラスC ネットワークのネットマスク：255.255.255.0
+        \item クラスB ネットワークのネットマスク：255.255.0.0
+        \item 電通大HPサーバの属するネットワークのネットマスク：255.255.0.0
+      \end{itemize}
+
+    \item ネットワークアドレス
+      \begin{itemize}
+        \item ホスト部がすべて0でネットワーク部だけが含まれるIPアドレス
+        \item ホストのIPアドレスとネットマスクをAND演算することでそのホストの属するネットワークアドレスが得られる
+        \item ネットワーク自体を表し、これをホストに割り当てることはできない
+        \item 電通大HPサーバのネットワークアドレス：130.153.0.0
+      \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{クラス別IPアドレスの問題点}
+
+  \begin{itemize}
+    \item 100台のコンピュータを含むネットワークを20個作りたい（ホスト2000台）
+      \begin{itemize}
+        \item クラスCのIPアドレスブロックが20個必要（ホスト5080台分）
+      \end{itemize}
+
+    \item 300台のコンピュータを含むネットワークを10個作りたい（ホスト3000台）
+      \begin{itemize}
+        \item クラスBのIPアドレスブロックが10個必要（ホスト655340台分）
+      \end{itemize}
+
+    \item 100000台のコンピュータを含むネットワークを3個作りたい（ホスト300000台）
+      \begin{itemize}
+        \item クラスAのIPアドレスブロックが3個必要（ホスト約5033万台分）
+      \end{itemize}
+
+    \item 使わないIPアドレスが発生する
+    \item 多くのホストを接続することができるネットワークの数は限られている
+
+  \end{itemize}
+
+\end{frame}
 
 
 \end{document}
